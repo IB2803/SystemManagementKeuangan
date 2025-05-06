@@ -51,7 +51,7 @@
           <div class="sidebar-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
-              <a href="index.html" class="logo">
+              <a href="/transaction" class="logo">
                 <img
                   src="{{ asset('img/icon/fintrack2.png') }}"
                   alt="navbar brand"
@@ -703,25 +703,38 @@
                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                             <script>
                             document.addEventListener('DOMContentLoaded', function () {
-                            const ctx = document.getElementById('myChart');
+                            const ctx = document.getElementById('myChart').getContext('2d');
                             new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                labels: ['Income', 'Expense'],
-                                datasets: [{
-                                    label: 'Transaction Summary',
-                                    data: [{{ $totalIncome }}, {{ $totalExpense }}],
-                                    backgroundColor: ['#4caf50', '#f44336'],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
+                            type: 'line',
+                            data: {
+                                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                datasets: [
+                                    {
+                                        label: 'Income',
+                                        data: {!! json_encode($monthlyIncome) !!},
+                                        backgroundColor: 'rgba(76, 175, 80, 0.3)',
+                                        borderColor: '#4caf50',
+                                        fill: true,
+                                        tension: 0.4
+                                    },
+                                    {
+                                        label: 'Expense',
+                                        data: {!! json_encode($monthlyExpense) !!},
+                                        backgroundColor: 'rgba(244, 67, 54, 0.3)',
+                                        borderColor: '#f44336',
+                                        fill: true,
+                                        tension: 0.4
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
                                 scales: {
                                     y: {
-                                    beginAtZero: true
+                                        beginAtZero: true
                                     }
                                 }
-                                }
+                            }
                             });
                             });
                             </script>
@@ -820,10 +833,12 @@
 
         <!-- End Custom template -->
       </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="assets/js/core/jquery-3.7.1.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap.min.js"></script>
 
@@ -886,4 +901,7 @@
         fillColor: "rgba(255, 165, 52, .14)",
       });
     </script>
+
+</body>
+
 </html>
