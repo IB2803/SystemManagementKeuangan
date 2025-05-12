@@ -26,7 +26,7 @@ class TransactionController extends Controller
         $totalIncome = 0;
         $totalExpense = 0;
         foreach ($transactions as $t){
-            $monthIndex =Carbon::parse($t->date)->format('n') - 1;
+            $monthIndex = Carbon::parse($t->date)->format('n') - 1;
 
             if (strtolower($t['type'])=== 'income'){
                 $months[$monthIndex]['income'] += $t['amount'];

@@ -118,14 +118,17 @@
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a data-bs-toggle="collapse" href="#forms">
+                  <a
+                    href="/savings"
+                    class="collapsed"
+                    aria-expanded="false">
                     <i class="fas fa-pen-square">
                         <img src = "{{ asset('img/icon/savings.png') }}" style = "width : 26px;" alt= "transaction icon">
                     </i>
                     <p>Smart Savings</p>
-                    <span class="caret"></span>
+                    {{-- <span class="caret"></span> --}}
                   </a>
-                  <div class="collapse" id="forms">
+                  {{-- <div class="collapse" id="forms">
                     <ul class="nav nav-collapse">
                       <li>
                         <a href="forms/forms.html">
@@ -133,7 +136,7 @@
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  </div> --}}
                 </li>
                 <li class="nav-item">
                   <a data-bs-toggle="collapse" href="#tables">
