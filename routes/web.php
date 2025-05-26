@@ -21,24 +21,14 @@ Route::post('penjumlahan', function(){
 
 });
 
-// Route::get('/savings', function(){
-//     return view('savings');
-// });
-// Route::post('/savings', function(){
-//     $wanttosave = request('wanttosave');
-//     $days = request('days');
-//     $months = request('months');
-//     $oprsave = $wanttosave / $days;
-//     return view('savings', ['oprsave' => $oprsave, 'wanttosave' => $wanttosave, 'days' => $days]);
 
-// });
 
 Route::get('/transactions', function(){
     return view('transactions');
 });
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -54,9 +44,10 @@ Route::get('/savings',[SavingsController::class ,'index'])->name('savings.index'
 use App\Http\Controllers\BudgetingController;
 Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budgeting.index');
 Route::post('/budgeting', [BudgetingController::class, 'store'])->name('budgeting.store');
-
+ 
 use App\Http\Controllers\TransactionController;
 
+Route::get('/', [TransactionController::class, 'index'])->name('home');
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
 Route::delete('/transaction/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');

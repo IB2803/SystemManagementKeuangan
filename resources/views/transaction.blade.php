@@ -504,7 +504,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4">
                   <div class="card card-stats card-round">
                     <div class="card-body">
                       <div class="row align-items-center">
@@ -527,7 +527,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-8 col-md-4">
                   <div class="card card-stats card-round">
                     <div class="card-body">
                       <div class="row align-items-center">
@@ -549,49 +549,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-round">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-icon">
-                          <div
-                            class="icon-big text-center icon-success bubble-shadow-small"
-                          >
-                            <i class="fas fa-luggage-cart"></i>
-                          </div>
-                        </div>
-                        <div class="col col-stats ms-3 ms-sm-0">
-                          <div class="numbers">
-                            <p class="card-category"></p>
-                            <h4 class="card-title"></h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-round">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-icon">
-                          <div
-                            class="icon-big text-center icon-secondary bubble-shadow-small"
-                          >
-                            <i class="far fa-check-circle"></i>
-                          </div>
-                        </div>
-                        <div class="col col-stats ms-3 ms-sm-0">
-                          <div class="numbers">
-                            <p class="card-category"></p>
-                            <h4 class="card-title"></h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
               <div class="col-md-12">
                 <div class="card card-round">
                   <div class="card-header">
@@ -736,21 +694,23 @@
                             });
                             });
                             </script>
-                          <a
+                            <a
                             href="#"
+                            id="exportChart"
                             class="btn btn-label-success btn-round btn-sm me-2"
-                          >
+                            >
                             <span class="btn-label">
-                              <i class="fa fa-pencil"></i>
+                                <i class="fa fa-pencil"></i>
                             </span>
                             Export
-                          </a>
-                          <a href="#" class="btn btn-label-info btn-round btn-sm">
+                            </a>
+                            <a href="#" id="printChart" class="btn btn-label-info btn-round btn-sm">
                             <span class="btn-label">
-                              <i class="fa fa-print"></i>
+                                <i class="fa fa-print"></i>
                             </span>
                             Print
-                          </a>
+                            </a>
+
 
                       </div>
                       <div id="myChartLegend"></div>
@@ -857,6 +817,64 @@
         fillColor: "rgba(255, 165, 52, .14)",
       });
     </script>
+
+    <script>
+    document.getElementById('exportChart').addEventListener('click', function (e) {
+        e.preventDefault();
+        const chart = document.getElementById('myChart');
+        const image = chart.toDataURL('image/png');
+
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = 'chart.png';
+        link.click();
+    });
+    </script>
+
+    <script>
+    document.getElementById('printChart').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const canvas = document.getElementById('myChart');
+        const imageData = canvas.toDataURL('image/png'); // Ubah canvas jadi gambar
+
+        const win = window.open('', '', 'width=800,height=600');
+        win.document.write(`
+        <html>
+            <head>
+            <title>Print Chart</title>
+            <style>
+                body {
+                text-align: center;
+                margin: 0;
+                padding: 20px;
+                font-family: Arial, sans-serif;
+                }
+                img {
+                max-width: 100%;
+                height: auto;
+                }
+            </style>
+            </head>
+            <body>
+            <h3>User Statistics</h3>
+            <img src="${imageData}" alt="Chart Image"/>
+            <script>
+                window.onload = function () {
+                window.print();
+                window.onafterprint = function () {
+                    window.close();
+                };
+                };
+            <\/script>
+            </body>
+        </html>
+        `);
+        win.document.close();
+    });
+    </script>
+
+
 
 </body>
 
