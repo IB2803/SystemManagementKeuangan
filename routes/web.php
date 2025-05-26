@@ -43,12 +43,20 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+use App\Http\Controllers\SpendingsController;
+Route::post('/spendings',[SpendingsController::class ,'calculate'])->name('spendings.calculate');
+Route::get('/spendings',[SpendingsController::class ,'index'])->name('spendings.index');
+
 use App\Http\Controllers\SavingsController;
 Route::post('/savings',[SavingsController::class ,'calculate'])->name('savings.calculate');
 Route::get('/savings',[SavingsController::class ,'index'])->name('savings.index');
 
+use App\Http\Controllers\BudgetingController;
+Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budgeting.index');
+Route::post('/budgeting', [BudgetingController::class, 'store'])->name('budgeting.store');
 
 use App\Http\Controllers\TransactionController;
 
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
+Route::delete('/transaction/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');

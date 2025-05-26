@@ -139,27 +139,14 @@
                   </div> --}}
                 </li>
                 <li class="nav-item">
-                  <a data-bs-toggle="collapse" href="#tables">
+                  <a  href="/spendings">
                     <i class="fas fa-table">
                         <img src = "{{ asset('img/icon/spend1.png') }}" alt="transaction icon" style="width : 26px;" >
                     </i>
                     <p>Smart Spendings</p>
-                    <span class="caret"></span>
+                    {{-- <span class="caret"></span> --}}
                   </a>
-                  <div class="collapse" id="tables">
-                    <ul class="nav nav-collapse">
-                      <li>
-                        <a href="tables/tables.html">
-                          <span class="sub-item">Basic Table</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="tables/datatables.html">
-                          <span class="sub-item">Datatables</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+
                 </li>
 
               </ul>
@@ -605,7 +592,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-12">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row card-tools-still-right">
@@ -674,6 +661,14 @@
                             <td class="text-end">
                               <span class="badge badge-success">Completed</span>
                             </td>
+                            <td class="text-end">
+                                    {{-- Tombol Hapus --}}
+                                <form action="{{ route('transaction.destroy', $t->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Yakin hapus data ini?')" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
                           </tr>
                           @endforeach
 
@@ -688,7 +683,7 @@
               </div>
 
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-15">
                   <div class="card card-round">
                     <div class="card-header">
                       <div class="card-head-row">
@@ -762,49 +757,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="card card-primary card-round">
-                    <div class="card-header">
-                      <div class="card-head-row">
-                        <div class="card-title">Daily Sales</div>
-                        <div class="card-tools">
-                          <div class="dropdown">
-                            <button
-                              class="btn btn-sm btn-label-light dropdown-toggle"
-                              type="button"
-                              id="dropdownMenuButton"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              Export
-                            </button>
-                            <div
-                              class="dropdown-menu"
-                              aria-labelledby="dropdownMenuButton"
-                            >
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#"
-                                >Something else here</a
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card-category">March 25 - April 02</div>
-                    </div>
-                    <div class="card-body pb-0">
-                      <div class="mb-4 mt-2">
-                        <h1>$4,578.58</h1>
-                      </div>
-                      <div class="pull-in">
-                        <canvas id="dailySalesChart"></canvas>
-                      </div>
-                    </div>
-                  </div>
 
-                </div>
               </div>
 
 

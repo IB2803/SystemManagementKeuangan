@@ -20,7 +20,7 @@ class SavingsController extends Controller
         $dailyamount = 0;
         $duration = 0;
 
-        if($mode == 'days' && $days >0){
+        if($mode == 'days' && $days > 0){
             $dailyamount = $wanttosave / $days;
             $duration = $days;
         }

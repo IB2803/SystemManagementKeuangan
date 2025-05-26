@@ -115,7 +115,7 @@
                     </ul>
                   </div>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                   <a
                     href="/savings"
                     class="collapsed"
@@ -136,7 +136,7 @@
                     </ul>
                   </div> --}}
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a  href="/spendings">
                     <i class="fas fa-table">
                         <img src = "{{ asset('img/icon/spend1.png') }}" alt="transaction icon" style="width : 26px;" >
@@ -402,10 +402,13 @@
           </div>
 
 
-            <div class="container">
+
+
+
+        <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Savings</h3>
+              <h3 class="fw-bold mb-3">Spendings</h3>
               <ul class="breadcrumbs mb-3">
 
             </div>
@@ -419,7 +422,7 @@
                     <div class="row">
                       <div class="col-md-6 col-lg-4">
                         <div class="form-group">
-                        <form action="/savings" method="POST">
+                        <form action="/spendings" method="POST">
                             @csrf
                           <label for="email2">Total Uang:</label>
                           <input
@@ -427,66 +430,24 @@
                             class="form-control"
                             id="email2"
                             placeholder="Enter money"
-                            name="wanttosave"
-                            value="{{ old('wanttosave')}}" required
+                            name="total_uang" required
                           />
                           <small id="emailHelp2" class="form-text text-muted"
-                            >total uang yang diinputkan akan dikalkulasikan sesuai hari & uang</small
+                            >total uang yang diinputkan akan dikalkulasikan sesuai hari</small
                           >
                         </div>
                         <div class="form-group">
-                          <label for="password">Based On Duration:</label>
+                          <label for="password">Jumlah Hari:</label>
                           <input
                             type="number"
                             class="form-control"
                             id="password"
-                            placeholder="Based On Duration"
-                            name = "days" value="{{ old('days') }}"
-                          />
-                        </div>
-
-                        <div class="form-group">
-                          <label for="password">Based On Money:</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="password"
-                            placeholder="Based On Money"
-                            name ="money" value = "{{ old('money') }}"
+                            placeholder="Jumlah hari"
+                            name="jumlah_hari" required
                           />
                         </div>
 
 
-                        <div class="form-group">
-                        <label>Mode</label>
-                        <div class="d-flex">
-                            <div class="form-check me-5">
-                            <input
-                                class="form-check-input"
-                                type="radio"
-                                name="mode"
-                                id="modeDays"
-                                value="days"
-                                required
-                            />
-                            <label class="form-check-label" for="modeDays">
-                                Based On Duration
-                            </label>
-                            </div>
-                            <div class="form-check">
-                            <input
-                                class="form-check-input"
-                                type="radio"
-                                name="mode"
-                                id="modeMoney"
-                                value="money"
-                            />
-                            <label class="form-check-label" for="modeMoney">
-                                Based On Money
-                            </label>
-                            </div>
-                        </div>
-                        </div>
 
 
 
@@ -494,31 +455,29 @@
 
 
 
-
-
-                        @if (isset($mode))
+                        @if (isset($uangPerHari))
                             <div class="form-group">
-                                <label class="form-label">Rencana Tabungan Harian</label>
+                                <label class="form-label">Pembagian Harian</label>
                                 <div class="selectgroup selectgroup-pills">
-                                    @for($i = 1; $i <= $duration; $i++)
+                                    @for($i = 1; $i<= $jumlahHari; $i++)
                                         <label class="selectgroup-item">
                                             <input
                                                 type="checkbox"
                                                 name="day{{ $i }}"
                                                 class="selectgroup-input day-checkbox"
-                                                data-amount="{{ number_format($dailyamount, 0, ',', '.') }}"
+                                                data-amount="{{ number_format($uangPerHari, 0, ',' , '.') }}"
                                             />
                                             <span class="selectgroup-button">
-                                                Day {{ $i }}: Rp. {{ number_format($dailyamount, 0, ',', '.') }}
+                                                Day {{ $i }}: Rp. {{ number_format($uangPerHari, 0, ',', '.') }}
                                             </span>
                                         </label>
                                     @endfor
                                 </div>
                             </div>
 
-                            <h3>Total Tertabung: Rp. <span id="total-saved">0</span></h3>
+                            <h3 class="fw-bold mb-3">Total Pengeluaran: Rp. <span id="total-saved1">0</span></h3>
+                            <h3 class="fw-bold mb-3">Total Tersisa: Rp. <span id="total-saved2">0</span></h3>
                         @endif
-
 
 
 
@@ -545,27 +504,51 @@
 
 
 
+
+
+
+
+
+
+
     <script>
+    const totalUang = {{ $totalUang ?? 0 }};
+    </script>
+
+      <script>
     document.addEventListener('DOMContentLoaded', function () {
         const checkboxes = document.querySelectorAll('.day-checkbox');
-        const totalSavedDisplay = document.getElementById('total-saved');
+        const totalSavedDisplay1 = document.getElementById('total-saved1');
+        const totalSavedDisplay2 = document.getElementById('total-saved2');
 
-        function updateTotal() {
+        function updateTotal1() {
             let total = 0;
             checkboxes.forEach(cb => {
                 if (cb.checked) {
                     total += parseFloat(cb.dataset.amount)*1000;
                 }
             });
-            totalSavedDisplay.textContent = total.toLocaleString('id-ID');
+            totalSavedDisplay1.textContent = total.toLocaleString('id-ID');
+        }
+        function updateTotal2() {
+            let total = totalUang;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total -= parseFloat(cb.dataset.amount)*1000;
+                }
+            });
+            totalSavedDisplay2.textContent = total.toLocaleString('id-ID');
         }
 
         checkboxes.forEach(cb => {
-            cb.addEventListener('change', updateTotal);
+            // cb.addEventListener('change', updateTotal1, updateTotal2);
+            cb.addEventListener('change', () => {
+            updateTotal1();
+            updateTotal2();
+            });
         });
     });
     </script>
 
 </body>
-
 </html>
