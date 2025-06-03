@@ -1,49 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Savings</title>
-    <meta
-    content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    name="viewport"
-  />
-  <link
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Berita Terbaru</title>
+    <link
     rel="icon"
     href="{{ asset ('img/icon/Logo.svg') }}"
     type="image/x-icon"
-  />
+    />
+      <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/plugins.min.css')}}" >
 
-  <!-- Fonts and icons -->
-  <script src="{{ asset('js/plugin/webfont/webfont.min.js') }}"></script>
-  <script>
-    WebFont.load({
-      google: { families: ["Public Sans:300,400,500,600,700"] },
-      custom: {
-        families: [
-          "Font Awesome 5 Solid",
-          "Font Awesome 5 Regular",
-          "Font Awesome 5 Brands",
-          "simple-line-icons",
-        ],
-        urls: ["asset('css/fonts.min.css')"],
-      },
-      active: function () {
-        sessionStorage.fonts = true;
-      },
-    });
-  </script>
+    <link rel="stylesheet" href="{{ asset('css/kaiadmin.min.css') }}">
 
-  <!-- CSS Files -->
-  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/plugins.min.css')}}" >
-
-  <link rel="stylesheet" href="{{ asset('css/kaiadmin.min.css') }}">
-
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link rel="stylesheet" href="{{ asset('css/demo.css') }}" >
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="{{ asset('css/demo.css') }}" >
+    <!-- Fonts and icons -->
+    <script src="{{ asset('js/plugin/webfont/webfont.min.js') }}"></script>
+    <script>
+        WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+            families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+            ],
+            urls: ["asset('css/fonts.min.css')"],
+        },
+        active: function () {
+            sessionStorage.fonts = true;
+        },
+        });
+        </script>
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+        .navbar-user { background-color: #2c3e50; color: white; padding: 15px 20px; text-align: center; }
+        .navbar-user h1 { margin: 0; font-size: 28px; }
+        .navbar-user a.home-link { color: white; text-decoration: none; float: right; font-size: 16px; padding-top: 8px;}
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .berita-item { background-color: #fff; margin-bottom: 20px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .berita-item h2 { margin-top: 0; font-size: 22px; color: #3498db; }
+        .berita-item .tanggal { font-size: 0.9em; color: #7f8c8d; margin-bottom: 10px; display: block; }
+        .berita-item .isi { font-size: 1em; line-height: 1.6; }
+        .no-berita { text-align: center; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn-back-user {display: block; width: fit-content; margin: 20px auto; padding: 10px 20px; background-color: #3498db; color:white; text-decoration:none; border-radius:5px; text-align: center;}
+        .btn-back-user:hover { background-color: #2980b9; }
+    </style>
 </head>
 <body>
-    <div class="wrapper">
+<div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar" data-background-color="dark">
           <div class="sidebar-logo">
@@ -76,7 +86,7 @@
               <ul class="nav nav-secondary">
                 <li class="nav-item">
                   <a
-                    href="/transaction"
+                    href="/admin/dashboard"
                     class="collapsed"
                     aria-expanded="false"
                   >
@@ -86,53 +96,24 @@
 
                     {{-- <i class="fas fa-th-large"></i> --}}
                     {{-- <span class="sub-item">Dashboard</span> --}}
-                    <p>Dashboard</p>
+                    <p>Admin Dashboard</p>
                     {{-- <span class="caret"></span> --}}
                   </a>
 
                 </li>
 
-                <li class="nav-item">
-                    <a  href= "/berita"
-                        class="collapsed"
-                        aria-expanded="false">
-                        <i class="fas fa-th-list">
-                            <img src = "{{ asset('img/icon/news.png') }}" style = "width : 24px;" alt= "budgeting icon">
-                        </i>
-                        <p>News</p>
-
-                    </a>
-
-                </li>
-                <li class="nav-item active">
-                  <a
-                    href="/savings"
+                < class="nav-item ">
+                  <a  href= "/berita"
                     class="collapsed"
                     aria-expanded="false">
-                    <i class="fas fa-pen-square">
-                        <img src = "{{ asset('img/icon/savings.png') }}" style = "width : 26px;" alt= "transaction icon">
+                    <i class="fas fa-th-list">
+                        <img src = "{{ asset('img/icon/news.png') }}" style = "width : 24px;" alt= "budgeting icon">
                     </i>
-                    <p>Smart Savings</p>
-                    {{-- <span class="caret"></span> --}}
+                    <p>Manage News</p>
+
                   </a>
-                  {{-- <div class="collapse" id="forms">
-                    <ul class="nav nav-collapse">
-                      <li>
-                        <a href="forms/forms.html">
-                          <span class="sub-item">Basic Form</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div> --}}
-                </li>
-                <li class="nav-item">
-                  <a  href="/spendings">
-                    <i class="fas fa-table">
-                        <img src = "{{ asset('img/icon/spend1.png') }}" alt="transaction icon" style="width : 26px;" >
-                    </i>
-                    <p>Smart Spendings</p>
-                    {{-- <span class="caret"></span> --}}
-                  </a>
+
+
 
                 </li>
 
@@ -387,14 +368,12 @@
                 </ul>
               </div>
             </nav>
-            <!-- End Navbar -->
           </div>
 
-
-            <div class="container">
+        <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Savings</h3>
+              <h3 class="fw-bold mb-3">Berita terbaru</h3>
               <ul class="breadcrumbs mb-3">
 
             </div>
@@ -402,111 +381,32 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <div class="card-title">Form</div>
+                    <div class="card-title">Berita hari ini</div>
                   </div>
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6 col-lg-4">
                         <div class="form-group">
-                        <form action="/savings" method="POST">
-                            @csrf
-                          <label for="email2">Total Uang:</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="email2"
-                            placeholder="Enter money"
-                            name="wanttosave"
-                            value="{{ old('wanttosave')}}" required
-                          />
-                          <small id="emailHelp2" class="form-text text-muted"
-                            >total uang yang diinputkan akan dikalkulasikan sesuai hari & uang</small
-                          >
-                        </div>
-                        <div class="form-group">
-                          <label for="password">Based On Duration:</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="password"
-                            placeholder="Based On Duration"
-                            name = "days" value="{{ old('days') }}"
-                          />
-                        </div>
+                            <div class="container">
+                                @if ($daftar_berita->isNotEmpty())
+                                    @foreach ($daftar_berita as $berita)
+                                        <div class="berita-item">
+                                            <h2>{{ $loop->iteration }}. Berita #{{ $berita->id }}</h2> {{-- Judul bisa diganti jika ada kolom judul --}}
+                                            <span class="tanggal">Diposting pada: {{ $berita->tanggal->format('d F Y') }}</span>
+                                            <div class="isi">
+                                                {!! nl2br(e($berita->isi_berita)) !!} {{-- nl2br untuk mengubah newline menjadi <br>, e() untuk escaping HTML --}}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="no-berita">
+                                        <p>Belum ada berita untuk saat ini.</p>
+                                    </div>
+                                @endif
 
-                        <div class="form-group">
-                          <label for="password">Based On Money:</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="password"
-                            placeholder="Based On Money"
-                            name ="money" value = "{{ old('money') }}"
-                          />
-                        </div>
-
-
-                        <div class="form-group">
-                        <label>Mode</label>
-                        <div class="d-flex">
-                            <div class="form-check me-5">
-                            <input
-                                class="form-check-input"
-                                type="radio"
-                                name="mode"
-                                id="modeDays"
-                                value="days"
-                                required
-                            />
-                            <label class="form-check-label" for="modeDays">
-                                Based On Duration
-                            </label>
-                            </div>
-                            <div class="form-check">
-                            <input
-                                class="form-check-input"
-                                type="radio"
-                                name="mode"
-                                id="modeMoney"
-                                value="money"
-                            />
-                            <label class="form-check-label" for="modeMoney">
-                                Based On Money
-                            </label>
-                            </div>
-                        </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-                        @if (isset($mode))
-                            <div class="form-group">
-                                <label class="form-label">Rencana Tabungan Harian</label>
-                                <div class="selectgroup selectgroup-pills">
-                                    @for($i = 1; $i <= $duration; $i++)
-                                        <label class="selectgroup-item">
-                                            <input
-                                                type="checkbox"
-                                                name="day{{ $i }}"
-                                                class="selectgroup-input day-checkbox"
-                                                data-amount="{{ number_format($dailyamount, 0, ',', '.') }}"
-                                            />
-                                            <span class="selectgroup-button">
-                                                Day {{ $i }}: Rp. {{ number_format($dailyamount, 0, ',', '.') }}
-                                            </span>
-                                        </label>
-                                    @endfor
-                                </div>
                             </div>
 
-                            <h3>Total Tertabung: Rp. <span id="total-saved">0</span></h3>
-                        @endif
+
 
 
 
@@ -515,8 +415,7 @@
                     </div>
                   </div>
                   <div class="card-action">
-                    <button class="btn btn-success" type="submit">Submit</button>
-                    <button class="btn btn-danger">Cancel</button>
+
                   </div>
                 </div>
               </div>
@@ -524,37 +423,10 @@
           </div>
         </div>
 
-
-      </div>
-
+            <!-- End Navbar -->
 
 
 
-
-
-
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('.day-checkbox');
-        const totalSavedDisplay = document.getElementById('total-saved');
-
-        function updateTotal() {
-            let total = 0;
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    total += parseFloat(cb.dataset.amount)*1000;
-                }
-            });
-            totalSavedDisplay.textContent = total.toLocaleString('id-ID');
-        }
-
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', updateTotal);
-        });
-    });
-    </script>
 
 </body>
-
 </html>

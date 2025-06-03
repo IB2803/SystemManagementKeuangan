@@ -41,6 +41,13 @@
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel="stylesheet" href="{{ asset('css/demo.css') }}" >
+  {{-- <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    </style> --}}
 </head>
 <body>
 
@@ -95,27 +102,15 @@
                 </li>
 
                 <li class="nav-item">
-                  <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                  <a  href= "/berita"
+                    class="collapsed"
+                    aria-expanded="false">
                     <i class="fas fa-th-list">
-                        <img src = "{{ asset('img/icon/Budgeting.png') }}" style = "width : 26px;" alt= "budgeting icon">
+                        <img src = "{{ asset('img/icon/news.png') }}" style = "width : 24px;" alt= "budgeting icon">
                     </i>
-                    <p>Budgeting</p>
-                    <span class="caret"></span>
+                    <p>News</p>
+
                   </a>
-                  <div class="collapse" id="sidebarLayouts">
-                    <ul class="nav nav-collapse">
-                      <li>
-                        <a href="sidebar-style-2.html">
-                          <span class="sub-item">Sidebar Style 2</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="icon-menu.html">
-                          <span class="sub-item">Icon Menu</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </li>
                 <li class="nav-item">
                   <a
@@ -391,8 +386,15 @@
                           <a class="dropdown-item" href="#">Inbox</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Account Setting</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Logout</a>
+                          <div  class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form-dropdown').submit();">
+                                    Logout
+                                </a>
+                                <form id="logout-form-dropdown" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                         </li>
                       </div>
                     </ul>
@@ -555,8 +557,16 @@
                   <div class="card-header">
                     <div class="card-head-row card-tools-still-right">
                       <div class="card-title">Transaction History</div>
+
                       <div class="card-tools">
+
                         <div class="dropdown">
+                            <a href="#" id="exportTableToExcel" class="btn btn-label-success btn-round btn-sm me-2">
+                            <span class="btn-label">
+                                <i class="fas fa-pencil"></i> {{-- Ganti ikon jika perlu --}}
+                            </span>
+                            Export Table
+                            </a>
                           <button
                             class="btn btn-icon btn-clean me-0"
                             type="button"
@@ -584,14 +594,14 @@
                   <div class="card-body p-0">
                     <div class="table-responsive">
                       <!-- Projects table -->
-                      <table class="table align-items-center mb-0">
+                      <table class="table align-items-center mb-0" id="transactionHistoryTable">
                         <thead class="thead-light">
                           <tr>
                             <th scope="col">Type</th>
                             <th scope="col" class="text-end">Date & Time</th>
                             <th scope="col" class="text-end">Amount</th>
                             <th scope="col" class="text-end">Description</th>
-                            <th scope="col" class="text-end">Status</th>
+                            <th scope="col" class="text-end">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -616,9 +626,7 @@
                             <td class="text-end">{{ $t['date'] }}</td>
                             <td class="text-end">Rp. {{number_format($t['amount'] ) }}</td>
                             <td class="text-end text-truncate" style="max-width: 150px;">{{ $t['description'] }}</td>
-                            <td class="text-end">
-                              <span class="badge badge-success">Completed</span>
-                            </td>
+
                             <td class="text-end">
                                     {{-- Tombol Hapus --}}
                                 <form action="{{ route('transaction.destroy', $t->id) }}" method="POST" style="display:inline;">
@@ -629,14 +637,19 @@
                             </td>
                           </tr>
                           @endforeach
+                        {{-- Di dalam card-tools atau lokasi yang sesuai --}}
 
 
 
                         </tbody>
+
                       </table>
+
                     </div>
 
+
                   </div>
+
                 </div>
               </div>
 
@@ -873,7 +886,33 @@
         win.document.close();
     });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+    document.getElementById('exportTableToExcel').addEventListener('click', function() {
+        // Dapatkan elemen tabel
+        var table = document.getElementById("transactionHistoryTable");
 
+        // Opsi untuk mengabaikan kolom "Actions" saat ekspor
+        // Kita akan membuat tabel baru tanpa kolom terakhir untuk diekspor
+        var table_clone = table.cloneNode(true);
+        var rows = table_clone.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            // Hapus sel terakhir (kolom "Actions") dari setiap baris
+            if (rows[i].getElementsByTagName('td').length > 0) {
+                rows[i].deleteCell(-1); // Hapus sel terakhir di body
+            } else if (rows[i].getElementsByTagName('th').length > 0) {
+                rows[i].deleteCell(-1); // Hapus sel terakhir di header
+            }
+        }
+
+        // Ubah tabel HTML menjadi worksheet SheetJS
+        var wb = XLSX.utils.table_to_book(table_clone, {sheet: "Transaction History"});
+
+        // Buat file Excel dan picu download
+        // Nama file bisa disesuaikan
+        XLSX.writeFile(wb, "TransactionHistory.xlsx");
+    });
+    </script>
 
 
 </body>

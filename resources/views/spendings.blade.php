@@ -93,27 +93,15 @@
                 </li>
 
                 <li class="nav-item">
-                  <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                  <a  href= "/berita"
+                    class="collapsed"
+                    aria-expanded="false">
                     <i class="fas fa-th-list">
-                        <img src = "{{ asset('img/icon/Budgeting.png') }}" style = "width : 26px;" alt= "budgeting icon">
+                        <img src = "{{ asset('img/icon/news.png') }}" style = "width : 24px;" alt= "budgeting icon">
                     </i>
-                    <p>Budgeting</p>
-                    <span class="caret"></span>
+                    <p>News</p>
+
                   </a>
-                  <div class="collapse" id="sidebarLayouts">
-                    <ul class="nav nav-collapse">
-                      <li>
-                        <a href="sidebar-style-2.html">
-                          <span class="sub-item">Sidebar Style 2</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="icon-menu.html">
-                          <span class="sub-item">Icon Menu</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </li>
                 <li class="nav-item">
                   <a
@@ -525,7 +513,7 @@
             let total = 0;
             checkboxes.forEach(cb => {
                 if (cb.checked) {
-                    total += parseFloat(cb.dataset.amount)*1000;
+                    total += parseFloat(cb.dataset.amount);
                 }
             });
             totalSavedDisplay1.textContent = total.toLocaleString('id-ID');
@@ -534,7 +522,7 @@
             let total = totalUang;
             checkboxes.forEach(cb => {
                 if (cb.checked) {
-                    total -= parseFloat(cb.dataset.amount)*1000;
+                    total -= parseFloat(cb.dataset.amount);
                 }
             });
             totalSavedDisplay2.textContent = total.toLocaleString('id-ID');
