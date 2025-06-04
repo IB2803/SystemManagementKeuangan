@@ -331,14 +331,14 @@
                           <div class="user-box">
                             <div class="avatar-lg">
                               <img
-                                src="{{ asset('img/profile.jpg') }}"
+                                src="{{ asset('img/icon/profile.svg') }}"
                                 alt="image profile"
                                 class="avatar-img rounded"
                               />
                             </div>
                             <div class="u-text">
-                              <h4>Hizrian</h4>
-                              <p class="text-muted">hello@example.com</p>
+                              <h4>admin</h4>
+                              <p class="text-muted">admin@gmail.com</p>
                               <a
                                 href="profile.html"
                                 class="btn btn-xs btn-secondary btn-sm"
@@ -355,7 +355,14 @@
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Account Setting</a>
                           <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Logout</a>
+                          <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form-dropdown').submit();">
+                                    Logout
+                                </a>
+                                <form id="logout-form-dropdown" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                         </li>
                       </div>
                     </ul>
@@ -429,7 +436,43 @@
             </div>
           </div>
         </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="assets/js/kaiadmin.min.js"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="assets/js/setting-demo.js"></script>
+    <script src="assets/js/demo.js"></script>
 
 
 

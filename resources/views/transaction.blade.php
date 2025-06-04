@@ -363,14 +363,14 @@
                           <div class="user-box">
                             <div class="avatar-lg">
                               <img
-                                src="{{ asset('img/profile.jpg') }}"
+                                src="{{ asset('img/icon/profile.svg') }}"
                                 alt="image profile"
                                 class="avatar-img rounded"
                               />
                             </div>
                             <div class="u-text">
-                              <h4>Hizrian</h4>
-                              <p class="text-muted">hello@example.com</p>
+                              <h4>Username</h4>
+                              <p class="text-muted">user@gmail.com</p>
                               <a
                                 href="profile.html"
                                 class="btn btn-xs btn-secondary btn-sm"
